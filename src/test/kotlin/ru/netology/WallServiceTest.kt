@@ -1,11 +1,17 @@
 package ru.netology
 
 import org.junit.Assert.assertEquals
+import org.junit.Before
 import org.junit.Test
 import ru.netology.WallService.add
 import ru.netology.WallService.update
 
 class WallServiceTest {
+
+    @Before
+    fun clearBeforeTest() {
+        WallService.clear()
+    }
 
     @Test
     fun add_ShouldAddPostToPostsArray() {
@@ -31,7 +37,8 @@ class WallServiceTest {
             isPinned = false,
             markedAsAds = false,
             isFavorite = true,
-            donut = Donut()
+            donut = Donut(),
+            attachments = null
         )
         val result = add(post)
         val expected = Post(
@@ -56,7 +63,8 @@ class WallServiceTest {
             isPinned = false,
             markedAsAds = false,
             isFavorite = true,
-            donut = Donut()
+            donut = Donut(),
+            attachments = null
         )
 
         assertEquals(expected, result)
@@ -87,7 +95,8 @@ class WallServiceTest {
             isPinned = false,
             markedAsAds = false,
             isFavorite = true,
-            donut = Donut()
+            donut = Donut(),
+            attachments = null
         )
         add(post)
         val newPost = Post(
@@ -112,7 +121,8 @@ class WallServiceTest {
             isPinned = false,
             markedAsAds = false,
             isFavorite = true,
-            donut = Donut()
+            donut = Donut(),
+            attachments = null
         )
         val result = update(newPost)
         assertEquals(true, result)
@@ -142,7 +152,8 @@ class WallServiceTest {
             isPinned = false,
             markedAsAds = false,
             isFavorite = true,
-            donut = Donut()
+            donut = Donut(),
+            attachments = null
         )
         add(post)
         val newPost = Post(
@@ -167,7 +178,8 @@ class WallServiceTest {
             isPinned = false,
             markedAsAds = false,
             isFavorite = true,
-            donut = Donut()
+            donut = Donut(),
+            attachments = null
         )
         val result = update(newPost)
         assertEquals(false, result)

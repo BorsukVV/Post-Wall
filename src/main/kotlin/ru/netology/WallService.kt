@@ -47,4 +47,8 @@ object WallService {
             println("Post ID: ${post.id}, post ownerID: ${post.ownerId}, post unix time: ${post.date}, text: ${post.text}")
         }
     }
+
+    fun clear() {
+        posts = emptyArray()
+    }
 }

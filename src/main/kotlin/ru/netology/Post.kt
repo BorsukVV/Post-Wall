@@ -96,8 +96,8 @@ data class Post (
     val replyOwnerId: Int,
     val replyPostId: Int,
     val friendsOnly: Boolean,
-    val comments: Comments,
-    val copyright: Copyright,
+    val comments: Comments?,
+    val copyright: Copyright?,
     val likes: Likes,
     val reposts: Reposts,
     val views: Views,
@@ -108,9 +108,9 @@ data class Post (
     val isPinned: Boolean,
     val markedAsAds: Boolean,
     val isFavorite: Boolean,
-    val donut: Donut
-)
-{
+    val donut: Donut,
+    val attachments: Attachments?
+) {
     override fun equals(other: Any?): Boolean {
         if (other == null || other !is Post)
             return false
@@ -118,6 +118,8 @@ data class Post (
     }
 
 }
+
+
 
 //can_pin integer, [0,1]	Информация о том, может ли текущий пользователь закрепить запись (1 — может, 0 — не может).
 //can_delete integer, [0,1]	Информация о том, может ли текущий пользователь удалить запись (1 — может, 0 — не может).
