@@ -1,6 +1,80 @@
 package ru.netology
 
 fun main() {
+
+    val post3 = Post(
+        id = 1000000001,
+        ownerId = 1000000100,
+        fromId = 1000000200,
+        createdBy = 1000000300,
+        date = 1000000400,
+        text = "Новый пост (апдейт)",
+        replyOwnerId = 1000000500,
+        replyPostId = 1000000600,
+        friendsOnly = false,
+        comments = null,
+        likes = Likes(),
+        copyright = Copyright(),
+        reposts = Reposts(),
+        views = Views(),
+        postType = "post",
+        canPin = true,
+        canDelete = true,
+        canEdit = true,
+        isPinned = false,
+        markedAsAds = false,
+        isFavorite = true,
+        donut = Donut(),
+        attachments = DocumentAttachments(
+            id = 10031,
+            ownerId = 10033,
+            title = "Прикрепленный документ",
+            size = 1024,
+            ext = "doc",
+            url = "https://vk.com/doc21893325_598388878",
+            date = 1000000426,
+            docType = 5,
+            preview = Preview(null, null, audioMessage = AudioMessage(
+                duration = 1001,
+                waveform = mutableListOf(32, 54, 47, 22, 41, 37),
+                linkOgg = "OggURL",
+                null
+            )
+            )
+        )
+    )
+
+    initialContent()
+
+    WallService.print()
+
+    if (WallService.update(post3)) {
+        println("Обновляем пост с ID ${post3.id}")
+    } else {
+        println("Обновление: Поста с таким ID не существует")
+    }
+
+    WallService.print()
+    val comment = Comments(
+        300001,
+        1000000001,
+        400004568,
+        "коммент под постом",
+        null,
+        null,
+        null,
+        null,
+        0
+    )
+
+    //WallService.createComment(1000000001, comment)
+    //WallService.findById(20)
+    WallService.createComment(1, comment)
+
+}
+
+fun initialContent() {
+
     val post = Post(
         id = 1000000000,
         ownerId = 1000000100,
@@ -11,7 +85,7 @@ fun main() {
         replyOwnerId = 1000000500,
         replyPostId = 1000000600,
         friendsOnly = false,
-        comments = Comments(),
+        comments = null,
         likes = Likes(),
         copyright = Copyright(),
         reposts = Reposts(),
@@ -52,7 +126,7 @@ fun main() {
         replyOwnerId = 1000000510,
         replyPostId = 1000000610,
         friendsOnly = false,
-        comments = Comments(),
+        comments = null,
         likes = Likes(),
         copyright = Copyright(),
         reposts = Reposts(),
@@ -91,7 +165,7 @@ fun main() {
         replyOwnerId = 1000000520,
         replyPostId = 1000000620,
         friendsOnly = false,
-        comments = Comments(),
+        comments = null,
         likes = Likes(),
         copyright = Copyright(),
         reposts = Reposts(),
@@ -116,60 +190,7 @@ fun main() {
         )
     )
 
-    val post3 = Post(
-        id = 1000000001,
-        ownerId = 1000000100,
-        fromId = 1000000200,
-        createdBy = 1000000300,
-        date = 1000000400,
-        text = "Новый пост (апдейт)",
-        replyOwnerId = 1000000500,
-        replyPostId = 1000000600,
-        friendsOnly = false,
-        comments = Comments(),
-        likes = Likes(),
-        copyright = Copyright(),
-        reposts = Reposts(),
-        views = Views(),
-        postType = "post",
-        canPin = true,
-        canDelete = true,
-        canEdit = true,
-        isPinned = false,
-        markedAsAds = false,
-        isFavorite = true,
-        donut = Donut(),
-        attachments = DocumentAttachments(
-            id = 10031,
-            ownerId = 10033,
-            title = "Прикрепленный документ",
-            size = 1024,
-            ext = "doc",
-            url = "https://vk.com/doc21893325_598388878",
-            date = 1000000426,
-            docType = 5,
-            preview = Preview(null, null, audioMessage = AudioMessage(
-                duration = 1001,
-                waveform = mutableListOf(32, 54, 47, 22, 41, 37),
-                linkOgg = "OggURL",
-        null
-                )
-            )
-        )
-    )
-
     WallService.add(post)
     WallService.add(post1)
     WallService.add(post2)
-
-    WallService.print()
-
-    if (WallService.update(post3)) {
-        println("Обновляем пост с ID ${post3.id}")
-    } else {
-        println("Поста с таким ID не существует")
-    }
-
-    WallService.print()
-
 }

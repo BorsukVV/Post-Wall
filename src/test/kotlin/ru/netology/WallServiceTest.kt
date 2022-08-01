@@ -4,14 +4,11 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import ru.netology.WallService.add
+import ru.netology.WallService.createComment
+import ru.netology.WallService.findById
 import ru.netology.WallService.update
 
 class WallServiceTest {
-
-    @Before
-    fun clearBeforeTest() {
-        WallService.clear()
-    }
 
     @Test
     fun add_ShouldAddPostToPostsArray() {
@@ -25,7 +22,7 @@ class WallServiceTest {
             replyOwnerId = 1000000500,
             replyPostId = 1000000600,
             friendsOnly = false,
-            comments = Comments(),
+            comments = null,
             likes = Likes(),
             copyright = Copyright(),
             reposts = Reposts(),
@@ -41,8 +38,9 @@ class WallServiceTest {
             attachments = null
         )
         val result = add(post)
+        //println(result.id)
         val expected = Post(
-            id = 1000000001,
+            id = 3,
             ownerId = 1000000100,
             fromId = 1000000200,
             createdBy = 1000000300,
@@ -51,7 +49,7 @@ class WallServiceTest {
             replyOwnerId = 1000000500,
             replyPostId = 1000000600,
             friendsOnly = false,
-            comments = Comments(),
+            comments = null,
             likes = Likes(),
             copyright = Copyright(),
             reposts = Reposts(),
@@ -71,6 +69,7 @@ class WallServiceTest {
 
     }
 
+
     @Test
     fun update_ShouldUpdatePost() {
         val post = Post(
@@ -83,7 +82,7 @@ class WallServiceTest {
             replyOwnerId = 1000000500,
             replyPostId = 1000000600,
             friendsOnly = false,
-            comments = Comments(),
+            comments = null,
             likes = Likes(),
             copyright = Copyright(),
             reposts = Reposts(),
@@ -100,7 +99,7 @@ class WallServiceTest {
         )
         add(post)
         val newPost = Post(
-            id = 1000000001,
+            id = 1,
             ownerId = 1000000100,
             fromId = 1000000200,
             createdBy = 1000000300,
@@ -109,7 +108,7 @@ class WallServiceTest {
             replyOwnerId = 1000000500,
             replyPostId = 1000000600,
             friendsOnly = false,
-            comments = Comments(),
+            comments = null,
             likes = Likes(),
             copyright = Copyright(),
             reposts = Reposts(),
@@ -131,7 +130,7 @@ class WallServiceTest {
     @Test
     fun update_ShouldNotUpdatePost() {
         val post = Post(
-            id = 1000000000,
+            id = 343,
             ownerId = 1000000100,
             fromId = 1000000200,
             createdBy = 1000000300,
@@ -140,7 +139,7 @@ class WallServiceTest {
             replyOwnerId = 1000000500,
             replyPostId = 1000000600,
             friendsOnly = false,
-            comments = Comments(),
+            comments = null,
             likes = Likes(),
             copyright = Copyright(),
             reposts = Reposts(),
@@ -166,7 +165,7 @@ class WallServiceTest {
             replyOwnerId = 1000000500,
             replyPostId = 1000000600,
             friendsOnly = false,
-            comments = Comments(),
+            comments = null,
             likes = Likes(),
             copyright = Copyright(),
             reposts = Reposts(),
@@ -183,6 +182,41 @@ class WallServiceTest {
         )
         val result = update(newPost)
         assertEquals(false, result)
+    }
+
+    @Test(expected = PostNotFoundException::class)
+    fun createComment_shouldThrowException() {
+        val comment = Comments(
+            300001,
+            1000000001,
+            400004568,
+            "коммент под постом",
+            null,
+            null,
+            null,
+            null,
+            0
+        )
+        createComment(32, comment)
+    }
+
+    @Test
+    fun createComment_shouldCreateComment() {
+        val comment = Comments(
+            300001,
+            1000000001,
+            400004568,
+            "коммент под постом",
+            null,
+            null,
+            null,
+            null,
+            0
+        )
+        val postID = 1
+        createComment(postID, comment)
+        val result = findById(postID)
+        assertEquals(300001, result.comments?.id)
     }
 
 }
